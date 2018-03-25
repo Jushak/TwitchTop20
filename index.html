@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="skeleton.css">
+<link rel="stylesheet" href="normalize.css">
+<link rel="stylesheet" href="top20.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+	$.ajax({
+		type: 		'GET',
+		url:  		'https://api.twitch.tv/helix/streams?first=20',
+		datatype: 	'json',
+		headers:	{
+			'Client-ID':		'ulinvr53j89hkayifdtupdnor6oiep'
+		},
+		success: function(responseData) {
+			var data = responseData.data;
+			jQuery(data).each(function(i, item)
+			{
+				var div = document.createElement("div");
+				div.classList.add("grid-item");
+				var image = document.createElement("IMG");
+				var url = item.thumbnail_url;
+				url = url.replace("{width}x{height}", "200x200");
+				image.setAttribute("src", url);
+				
+				var divImage = document.createElement("div");
+				divImage.classList.add("grid-item-element");
+				divImage.appendChild(image);
+				div.appendChild(divImage);
+				var divData = document.createElement("div");
+				divData.classList.add("grid-item-element");
+				
+				var p = document.createElement("p");
+				p.innerHTML = "Title :";
+				p.innerHTML += item.title;
+				divData.appendChild(p);
+				
+				p = document.createElement("p");
+				p.innerHTML = "Language: ";
+				p.innerHTML += item.language;
+				divData.appendChild(p);
+				
+				p = document.createElement("p");
+				p.innerHTML = "Start time: ";
+				p.innerHTML += item.started_at;
+				divData.appendChild(p);
+				
+				p = document.createElement("p");
+				p.innerHTML = "Current viewers: ";
+				p.innerHTML += item.viewer_count;
+				divData.appendChild(p);
+				
+				div.appendChild(divData);
+				document.getElementById("StreamList").appendChild(div);
+			})
+		},
+		error: function() {
+			alert("Something went wrong :(");  
+		} 
+	})
+});
+</script>
+<title>Twitch Top 20</title>
+</head>
+<body>
+<h2 class="header">Twitch Top 20</h2>
+<div id ="StreamList" class="grid-container">
+</ul>	
+</body>
+</html>

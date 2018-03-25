@@ -1,0 +1,26 @@
+h2.header {
+	text-align: center;
+}
+
+body {
+	background-color: powderblue;
+}
+
+div.grid-item {
+	margin: auto;
+	float: left;
+	width: 50%;
+	text-align: left;
+}
+
+div.grid-item-element {
+	float: left;
+	horizontal-align: middle;
+	max-width: 50%;
+}
+	
+p {
+	line-height: normal;
+	word-wrap: normal;
+	white-space: normal;
+}
